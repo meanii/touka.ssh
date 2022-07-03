@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "touka.ssh"
-version = "1.0.2"
+version = "1.1.2"
 description = "touka.ssh is an ssh manager that allows you to manage all of your VPSs without keeping your password."
 authors = ["anil chauhan <anilchauhanxda@gmail.com>"]
 readme = "README.md"
