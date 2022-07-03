@@ -131,18 +131,38 @@ def list() -> None:
 
 @app.command()
 def purge(
+    name: str = typer.Option(
+        None,
+        "--name",
+        "-n",
+        help="name of the saved server, you can get via touka.shh list",
+    ),
     all: bool = typer.Option(
         False,
         "--all",
         "-a",
-        prompt="Do you really want to remove ALL of your saved servers?",
         help="purge every stored server.",
-    )
+    ),
 ) -> None:
     """purge your stored servers."""
+
     if all:
+        can_delete = typer.confirm(
+            "Do you really want to remove ALL of your saved servers?", abort=True
+        )
+        if not can_delete:
+            typer.secho(
+                "aborted!", fg=typer.colors.GREEN
+            )
+            raise typer.Exit()
         db.purge_all()
-        typer.secho("deleted all of your saved servers successfully!")
+        typer.secho(
+            "deleted all of your saved servers successfully!", fg=typer.colors.GREEN
+        )
+        raise typer.Exit()
+
+    db.purge(name)
+    typer.secho(f"{name} deleted!", fg=typer.colors.GREEN)
 
 
 @app.callback()

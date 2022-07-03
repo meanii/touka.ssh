@@ -35,6 +35,10 @@ class DatabaseHandler:
 
     def get_all(self) -> []:
         return self.db.all()
+    
+    def purge(self, name: str) -> None:
+        Server = Query()
+        return self.db.remove(Server.name == name)
 
     def purge_all(self) -> None:
         return self.db.truncate()
