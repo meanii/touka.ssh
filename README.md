@@ -52,7 +52,7 @@ ID.  | Name  | Address  | Port  | Description
 ## connect
 connect to server via name
 ```sh
-touka connect -n kube-mogi-worker-01
+touka connect -n meanii-ubuntu
 ```
 
 ---
