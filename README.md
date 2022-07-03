@@ -57,5 +57,5 @@ touka connect -n meanii-ubuntu
 
 ---
 ###  Copyright & License
-- Copyright (C)  2021 [meanii](https://github.om/meanii )
+- Copyright (C)  2022 [meanii](https://github.om/meanii )
 - Licensed under the terms of the [GNU General Public License v3.0](https://github.com/meanii/touka.shh/blob/main/LICENSE)
