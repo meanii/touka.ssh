@@ -25,6 +25,7 @@ db = database.DatabaseHandler()
 
 @app.command()
 def init() -> None:
+    """assign pub key to your IP machine"""
     os.system(f'ssh-keygen -f {DEFAULT_ROOT_DIR_PATH.joinpath("key")} -t rsa -q')
 
 
@@ -57,16 +58,23 @@ def add(
         typer.secho("Please provide ssh address!", fg=typer.colors.RED)
         raise typer.Exit()
     if not (check_ip(address)):
-        typer.secho("The IP address that you provided is incorrect.", fg=typer.colors.RED)
+        typer.secho(
+            "The IP address that you provided is incorrect.", fg=typer.colors.RED
+        )
         raise typer.Exit()
     if db.get_address(name):
-        typer.secho("This nickname is already in your collection; the new name should be unique.", fg=typer.colors.RED)
+        typer.secho(
+            "This nickname is already in your collection; the new name should be unique.",
+            fg=typer.colors.RED,
+        )
         raise typer.Exit()
     if db.get_name(address):
-        typer.secho("This address is already in your database; the new address should be distinct.", fg=typer.colors.RED)
+        typer.secho(
+            "This address is already in your database; the new address should be distinct.",
+            fg=typer.colors.RED,
+        )
         raise typer.Exit()
-        
-        
+
     _add_callback(port, address, description, name)
 
 
@@ -79,13 +87,18 @@ def connect(
         help="The server's nickname, which you saved!",
     )
 ) -> None:
+    """connect to server via name"""
     if not name:
-        typer.secho("To connect, please provide the server's nickname!", fg=typer.colors.RED)
+        typer.secho(
+            "To connect, please provide the server's nickname!", fg=typer.colors.RED
+        )
         raise typer.Exit()
-    
+
     address = db.get_address(name)
     if not address:
-        typer.secho("You don't have this server in your collection!", fg=typer.colors.RED)
+        typer.secho(
+            "You don't have this server in your collection!", fg=typer.colors.RED
+        )
         raise typer.Exit()
     typer.secho(f"connecting to the {address}...", fg=typer.colors.GREEN)
     _connect_callback(address)
@@ -93,6 +106,7 @@ def connect(
 
 @app.command()
 def list() -> None:
+    """list of all saved servers."""
     servers = db.get_all()
     if len(servers) == 0:
         typer.secho("There are currently no servers saved!", fg=typer.colors.RED)
@@ -125,6 +139,7 @@ def purge(
         help="purge every stored server.",
     )
 ) -> None:
+    """purge your stored servers."""
     if all:
         db.purge_all()
         typer.secho("deleted all of your saved servers successfully!")
