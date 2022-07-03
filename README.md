@@ -3,7 +3,7 @@
 
 ## Installing
 ```
-python3 -U touka.ssh
+pip3 install -U touka.ssh
 ```
 
 
