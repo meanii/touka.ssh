@@ -14,7 +14,7 @@ def _add_callback(port: int, address: str, description: str, name: str) -> None:
             {"port": port, "address": address, "description": description, "name": name}
         )
         typer.secho(
-            f'There is a new server now! Access is available via ( touka.ssh connect {name} )',
+            f'There is a new server now! Access is available via ( touka connect --name {name} )',
             fg=typer.colors.GREEN
         )
     except KeyboardInterrupt:

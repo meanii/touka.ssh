@@ -3,6 +3,6 @@
 from pathlib import Path
 
 __app_name__ = "touka.ssh"
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 DEFAULT_ROOT_DIR_PATH = Path(Path.home().joinpath(".meanii/touka.ssh/"))
