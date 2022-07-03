@@ -26,7 +26,7 @@ db = database.DatabaseHandler()
 @app.command()
 def init() -> None:
     """assign pub key to your IP machine"""
-    os.system(f'ssh-keygen -t rsa -q')
+    os.system(f"ssh-keygen -t rsa -q")
 
 
 @app.command()
@@ -80,12 +80,18 @@ def add(
 
 @app.command()
 def connect(
+    force: bool = typer.Option(
+        False,
+        "--force",
+        "-f",
+        help="If the ssh key has been withdrawn from the server, force a reconnect!",
+    ),
     name: str = typer.Option(
         None,
         "--name",
         "-n",
         help="The server's nickname, which you saved!",
-    )
+    ),
 ) -> None:
     """connect to server via name"""
     if not name:
@@ -100,8 +106,10 @@ def connect(
             "You don't have this server in your collection!", fg=typer.colors.RED
         )
         raise typer.Exit()
+    if force:
+        typer.secho(f"reforcing to connect to the f{address}...", fg=typer.colors.GREEN)
     typer.secho(f"connecting to the {address}...", fg=typer.colors.GREEN)
-    _connect_callback(address)
+    _connect_callback(address, force)
 
 
 @app.command()
@@ -151,9 +159,7 @@ def purge(
             "Do you really want to remove ALL of your saved servers?", abort=True
         )
         if not can_delete:
-            typer.secho(
-                "aborted!", fg=typer.colors.GREEN
-            )
+            typer.secho("aborted!", fg=typer.colors.GREEN)
             raise typer.Exit()
         db.purge_all()
         typer.secho(
