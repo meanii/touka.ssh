@@ -26,7 +26,7 @@ db = database.DatabaseHandler()
 @app.command()
 def init() -> None:
     """assign pub key to your IP machine"""
-    os.system(f'ssh-keygen -f {DEFAULT_ROOT_DIR_PATH.joinpath("key")} -t rsa -q')
+    os.system(f'ssh-keygen -t rsa -q')
 
 
 @app.command()
