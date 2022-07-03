@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "touka.ssh"
+version = "1.0.0"
+description = "touka.ssh is an ssh manager that allows you to manage all of your VPSs without keeping your password."
+authors = ["anil chauhan <anilchauhanxda@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "touka" }
+]
+
+[tool.poetry.scripts]
+touka = "touka.touka:main"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+typer = "^0.4.2"
+tinydb = "^4.7.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
