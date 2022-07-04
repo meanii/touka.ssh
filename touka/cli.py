@@ -2,10 +2,12 @@
 # touka/cli.py
 
 import os
+import typer
+
 from pathlib import Path
 from typing import List, Optional
+from prettytable import PrettyTable
 
-import typer
 
 from touka.callbacks.version import _version_callback
 from touka.callbacks.add import _add_callback
@@ -115,26 +117,20 @@ def connect(
 @app.command()
 def list() -> None:
     """list of all saved servers."""
+    table = PrettyTable()
     servers = db.get_all()
     if len(servers) == 0:
         typer.secho("There are currently no servers saved!", fg=typer.colors.RED)
         raise typer.Exit()
     typer.secho("\nServers you have saved:\n", fg=typer.colors.BLUE, bold=True)
-    columns = ("ID.  ", "| Name  ", "| Address  ", "| Port  ", "| Description  ")
-    headers = "".join(columns)
-    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
-    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+    table.field_names = ["ID", "Name", "Address", "Port", "Description"]
     for id, server in enumerate(servers, 1):
         port, address, description, name = server.values()
-        typer.secho(
-            f"{id}{(len(columns[0]) - len(str(id))) * ' '}"
-            f"| {name}{(len(columns[1]) - len(str(name)) - 4) * ' '} "
-            f"| {address}{(len(columns[2]) - len(str(address)) - 2) * ' '} "
-            f"| {port} "
-            f"| {description} ",
-            fg=typer.colors.BLUE,
-        )
-    typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+        table.add_row([id, name, address, port, description])
+    typer.secho(
+        table,
+        fg=typer.colors.BLUE,
+    )
 
 
 @app.command()
