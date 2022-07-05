@@ -43,10 +43,14 @@ list of all saved servers.
 ```
 Servers you have saved:
 
-ID.  | Name  | Address  | Port  | Description  
------------------------------------------------
-1    | meanii-ubuntu | 192.168.0.9 | 22 | meanii modlette's server digitalocean 
------------------------------------------------
++----+---------------------+----------------+------+---------------------------------------------------+--------+
+| ID |         Name        |    Address     | Port |                    Description                    | Status |
++----+---------------------+----------------+------+---------------------------------------------------+--------+
+| 1  |   kube-anii-master  | 218.45.380.202 |  22  |     kube-anii-master  server of kubernaties       |   ✅   |
+| 2  | kube-anii-worker-02 | 308.50.380.204 |  22  |   kube-anii-worker-02  server of kubernaties      |   ✅   |
+| 3  | kube-anii-worker-01 | 308.50.254.203 |  22  |   kube-anii-worker-01  server of kubernaties      |   ✅   |
+| 4  |     jenkins         | 308.50.253.209 |  22  |      jenkins server - jenkins.meanii.dev          |   ✅   |
++----+---------------------+----------------+------+---------------------------------------------------+--------+
 ```
 
 ## connect
