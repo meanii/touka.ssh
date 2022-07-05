@@ -1,6 +1,7 @@
 import os
 import typer
-from touka import DEFAULT_ROOT_DIR_PATH, database
+from touka import DEFAULT_ROOT_DIR_PATH
+from touka.database import touka
 
 
 def _add_callback(port: int, address: str, description: str, name: str) -> None:
@@ -9,7 +10,7 @@ def _add_callback(port: int, address: str, description: str, name: str) -> None:
         os.system(
             f'ssh-copy-id -f root@{address}'
         )
-        db = database.DatabaseHandler()
+        db = touka.ToukaDatabase()
         db.save(
             {"port": port, "address": address, "description": description, "name": name}
         )
