@@ -90,6 +90,11 @@ def connect(
         "-f",
         help="If the ssh key has been withdrawn from the server, force a reconnect!",
     ),
+    id: str = typer.Option(
+        None,
+        "--id",
+        help="You may get the server's ID that Touka saved by going to: touka list.",
+    ),
     name: str = typer.Option(
         None,
         "--name",
@@ -98,13 +103,17 @@ def connect(
     ),
 ) -> None:
     """connect to server via name"""
-    if not name:
+    if not name and not id:
         typer.secho(
-            "To connect, please provide the server's nickname!", fg=typer.colors.RED
+            "To connect, please provide the server's nickname or ID!",
+            fg=typer.colors.RED,
         )
         raise typer.Exit()
 
-    address = db.get_address(name)
+    if name:
+        address = db.get_address(name=name)
+    if id:
+        address = db.get_address(id=id)
     if not address:
         typer.secho(
             "You don't have this server in your collection!", fg=typer.colors.RED

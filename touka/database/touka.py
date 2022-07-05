@@ -16,12 +16,17 @@ class ToukaDatabase:
     def save(self, data: set) -> None:
         self.db.insert(data)
 
-    def get_address(self, name: str) -> Union[str, None]:
+    def get_address(self, id: str = None, name: str = None) -> Union[str, None]:
         Server = Query()
-        server = self.db.search(Server.name == name)
-        if len(server) == 0:
+        
+        if name:
+            server = self.db.get(Server.name == name)
+        if id:
+            server = self.db.get(doc_id=id)
+            
+        if not server:
             return None
-        return server[0].get("address")
+        return server.get("address")
 
     def get_name(self, address: str) -> Union[str, None]:
         Server = Query()
