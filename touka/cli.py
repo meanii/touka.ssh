@@ -187,7 +187,11 @@ def purge(
             "deleted all of your saved servers successfully!", fg=typer.colors.GREEN
         )
         raise typer.Exit()
-
+    if not name:
+        typer.secho(
+            "To delete it, kindly specify the server name!", fg=typer.colors.RED
+        )
+        raise typer.Exit()
     db.purge(name)
     typer.secho(f"{name} deleted!", fg=typer.colors.GREEN)
 
