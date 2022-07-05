@@ -6,6 +6,6 @@ __app_name__ = "touka.ssh"
 __about__ = "Awesome ssh manager, especially made for anii ☂️"
 __source__ = "https://github.com/meanii/touka.ssh/"
 __author__ = "Anil Chauhan <https://github.com/meanii>"
-__version__ = "2.2.4"
+__version__ = "2.2.5"
 
 DEFAULT_ROOT_DIR_PATH = Path(Path.home().joinpath(".meanii/touka.ssh/"))

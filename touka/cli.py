@@ -17,6 +17,8 @@ from touka import __app_name__, __version__, __about__
 from touka.database.touka import ToukaDatabase
 
 from touka.utils.validations import check_ip
+from touka.utils.ping import ping
+
 from touka import DEFAULT_ROOT_DIR_PATH
 
 app = typer.Typer(
@@ -126,18 +128,33 @@ def connect(
 
 
 @app.command()
-def list() -> None:
+def list(
+    status: bool = typer.Option(
+        False,
+        "--status",
+        "-s",
+        help="Ping all servers and display the results in a list.",
+    )
+) -> None:
     """list of all saved servers."""
     table = PrettyTable()
     servers = db.get_all()
     if len(servers) == 0:
         typer.secho("There are currently no servers saved!", fg=typer.colors.RED)
         raise typer.Exit()
-    typer.secho("\nServers you have saved:\n", fg=typer.colors.BLUE, bold=True)
-    table.field_names = ["ID", "Name", "Address", "Port", "Description"]
+    if status:
+        table.field_names = ["ID", "Name", "Address", "Port", "Description", "Status"]
+        typer.secho("pinging...")
+    else:
+        table.field_names = ["ID", "Name", "Address", "Port", "Description"]
     for id, server in enumerate(servers, 1):
         port, address, description, name = server.values()
-        table.add_row([id, name, address, port, description])
+        if status:
+            status_result = "✅" if ping(address) else "❌"
+            table.add_row([id, name, address, port, description, status_result])
+        else:
+            table.add_row([id, name, address, port, description])
+    typer.secho("\nServers you have saved:\n", fg=typer.colors.BLUE, bold=True)
     typer.secho(table, fg=typer.colors.BLUE)
 
 
