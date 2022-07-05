@@ -13,16 +13,18 @@ from touka.callbacks.version import _version_callback
 from touka.callbacks.add import _add_callback
 from touka.callbacks.connect import _connect_callback
 
-from touka import __app_name__, __version__, database
+from touka import __app_name__, __version__, __about__
+from touka.database.touka import ToukaDatabase
+
 from touka.utils.validations import check_ip
 from touka import DEFAULT_ROOT_DIR_PATH
 
 app = typer.Typer(
     name=f"{__app_name__} - (v{__version__})",
-    help="Awesome ssh manager, especially made for anii ☂️",
+    help=__about__,
 )
 
-db = database.DatabaseHandler()
+db = ToukaDatabase()
 
 
 @app.command()
@@ -127,10 +129,7 @@ def list() -> None:
     for id, server in enumerate(servers, 1):
         port, address, description, name = server.values()
         table.add_row([id, name, address, port, description])
-    typer.secho(
-        table,
-        fg=typer.colors.BLUE,
-    )
+    typer.secho(table, fg=typer.colors.BLUE)
 
 
 @app.command()

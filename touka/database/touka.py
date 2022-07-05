@@ -5,16 +5,13 @@ import sys
 from typing import Union
 from tinydb import TinyDB, Query
 from touka.utils.os_handler import check_file
+from touka.database.client import Database
 
-DEFAULT_DB_FILE = ".touka.json"
 
-
-class DatabaseHandler:
+class ToukaDatabase:
     def __init__(self) -> None:
-        try:
-            self.db = TinyDB(check_file(DEFAULT_DB_FILE))
-        except OSError as e:
-            sys.exit(e)
+        self.touka = Database("touka")
+        self.db = self.touka.connect()
 
     def save(self, data: set) -> None:
         self.db.insert(data)
@@ -25,7 +22,7 @@ class DatabaseHandler:
         if len(server) == 0:
             return None
         return server[0].get("address")
-    
+
     def get_name(self, address: str) -> Union[str, None]:
         Server = Query()
         server = self.db.search(Server.address == address)
@@ -35,7 +32,7 @@ class DatabaseHandler:
 
     def get_all(self) -> []:
         return self.db.all()
-    
+
     def purge(self, name: str) -> None:
         Server = Query()
         return self.db.remove(Server.name == name)

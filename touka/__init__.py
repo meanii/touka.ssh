@@ -3,6 +3,9 @@
 from pathlib import Path
 
 __app_name__ = "touka.ssh"
-__version__ = "2.1.2"
+__about__ = "Awesome ssh manager, especially made for anii ☂️"
+__source__ = "https://github.com/meanii/touka.ssh/"
+__author__ = "Anil Chauhan <https://github.com/meanii>"
+__version__ = "2.2.2"
 
 DEFAULT_ROOT_DIR_PATH = Path(Path.home().joinpath(".meanii/touka.ssh/"))
