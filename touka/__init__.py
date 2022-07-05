@@ -2,10 +2,10 @@
 # touka/__init__.py
 from pathlib import Path
 
-__app_name__ = "touka.ssh"
+__app_name__ = "touka"
 __about__ = "Awesome ssh manager, especially made for anii ☂️"
 __source__ = "https://github.com/meanii/touka.ssh/"
 __author__ = "Anil Chauhan <https://github.com/meanii>"
-__version__ = "2.2.6"
+__version__ = "2.2.7"
 
 DEFAULT_ROOT_DIR_PATH = Path(Path.home().joinpath(".meanii/touka.ssh/"))
