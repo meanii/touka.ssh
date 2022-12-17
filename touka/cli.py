@@ -154,8 +154,7 @@ def list(
             table.add_row([id, name, address, port, description, status_result])
         else:
             table.add_row([id, name, address, port, description])
-    typer.secho("\nServers you have saved:\n", fg=typer.colors.BLUE, bold=True)
-    typer.secho(table, fg=typer.colors.BLUE)
+    typer.secho(table, fg=typer.colors.BRIGHT_WHITE)
 
 
 @app.command()
